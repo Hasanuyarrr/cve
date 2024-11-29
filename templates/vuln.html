@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Günlük CVE Raporu</title>
+    <link rel="icon" href="https://search-vulns.com/static/favicon.png" type="image/png"> <!-- Exploit iconu ekledik -->
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --table-bg: #1e1e1e;
+            --table-header: #333333;
+            --table-hover: #444444;
+            --link-color: #3498db;
+            --highlight-color: #f1c40f;
+            --no-data-color: #e74c3c;
+        }
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --table-bg: #f9f9f9;
+            --table-header: #f1f1f1;
+            --table-hover: #eeeeee;
+            --link-color: #007bff;
+            --highlight-color: #ffc107;
+            --no-data-color: #dc3545;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            background-image: url('https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2023/12/21102720/Windows-CLFS-five-exploits-ransomware_October-2022_featured-1200x600.jpg'); /* Arka plan resmi ekledik */
+            background-size: cover;
+            background-position: center;
+        }
+        h1 {
+            text-align: center;
+            color: var(--highlight-color);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--table-bg);
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--table-header);
+            color: var(--highlight-color);
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        tr:nth-child(even) {
+            background-color: var(--table-bg);
+        }
+        tr:hover {
+            background-color: var(--table-hover);
+        }
+        td a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+        .no-data {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            color: var(--no-data-color);
+        }
+        .theme-toggle {
+            display: block;
+            margin: 10px auto 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: var(--highlight-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .theme-toggle:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <button class="theme-toggle" onclick="toggleTheme()">Light Mod</button>
+    <h1>Günlük CVE Raporu</h1>
+    {% if cves %}
+    <table>
+        <thead>
+            <tr>
+                <th>CVE ID</th>
+                <th>Başlık</th>
+                <th>Açıklama</th>
+                <th>Yayın Tarihi</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cve in cves %}
+            <tr>
+                <td>{{ cve.id }}</td>
+                <td>{{ cve.title }}</td>
+                <td>{{ cve.description }}</td>
+                <td>{{ cve.published_date }}</td>
+                <td><a href="{{ cve.vhref_link }}" target="_blank">Detaylar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="no-data">Şu anda gösterilecek CVE bulunmamaktadır.</p>
+    {% endif %}
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute("data-theme");
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            body.setAttribute("data-theme", newTheme);
+            
+            const button = document.querySelector('.theme-toggle');
+            button.textContent = newTheme === "dark" ? "Light Mod" : "Dark Mod";
+        }
+    </script>
+</body>
+</html>
