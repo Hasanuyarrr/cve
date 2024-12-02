@@ -8,7 +8,7 @@ import time
 app = Flask(__name__)
 
 # Vulners API anahtarı
-API_KEY = "N8B8IXAXWYWBRUFB3JOVT566HNSJBRQZKCYPCD4GYLQTWL1APQ748FNK8LJTL4KT"
+API_KEY = ""
 vulners_api = vulners.Vulners(api_key=API_KEY)
 
 # CVE verilerini depolamak için bir değişken
